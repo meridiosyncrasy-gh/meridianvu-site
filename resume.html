@@ -3,11 +3,11 @@
 <meta property="og:image" content="https://meridianvu.com/img/hero-1.jpg"><meta name="theme-color" content="#5b3f8c"><link rel="icon" href="img/avatar.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=Caveat:wght@600;700&display=swap"><link rel="stylesheet" href="style.css"></head><body><header class="nav"><div class="in"><a class="brand" href="index.html"><span class="mono"><img src="img/avatar.jpg" alt=""></span><span class="name">Meridian&nbsp;Vu</span></a><ul><li class="hide-sm"><a class="link" href="index.html">Home</a></li><li><a class="link" href="services.html">Services</a></li><li class="hide-sm"><a class="link" href="index.html#work">Case&nbsp;studies</a></li><li class="hide-sm"><a class="link" href="resume.html" aria-current="page">Resume</a></li><li><a class="btn" href="index.html#contact">Let's&nbsp;talk</a></li></ul></div></header><main><section class="section"><div class="wrap resume-wrap">
 <div class="stack" style="position:sticky;top:96px"><span class="eyebrow">Resume</span><h1>Meridian&nbsp;Vu</h1>
-<p class="lede">AI systems, ecommerce growth and creative production. 10+ years in design, now building the systems that let small teams do&nbsp;big-team&nbsp;work.</p>
+<p class="lede">AI systems, ecommerce growth and creative production. 10+ years in design, now building the systems that let small teams do big-team&nbsp;work.</p>
 <div class="ctas"><a class="btn" href="Meridian-Vu-Resume.pdf" target="_blank" rel="noopener">Download&nbsp;PDF</a><a class="btn ghost" href="index.html#contact">Let's&nbsp;talk</a></div>
 <div class="trust"><span class="chip">Based in <b>Las&nbsp;Vegas</b></span><span class="chip"><b>Remote</b> and&nbsp;async</span></div></div>
 <div class="pages"><img src="img/resume-1.jpg" alt="Resume page 1"><img src="img/resume-2.jpg" alt="Resume page 2" loading="lazy"></div>
-</div></section></main><footer><div class="in"><span>&copy; 2026 Meridian Vu &middot; Las Vegas, NV &middot; Remote, Pacific&nbsp;time</span><span><a href="mailto:MeridianVu@gmail.com">MeridianVu@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/meridianvu" target="_blank" rel="noopener">LinkedIn</a></span></div></footer><script>
+</div></section></main><footer><div class="in"><span>&copy; 2026 Meridian Vu &middot; Las Vegas, NV &middot; Remote, Pacific&nbsp;time</span><span class="foot-links"><a href="portfolio.html">Portfolio</a><a href="vel-concept.html">VÉL</a><a href="yumelixir.html">Yumelixir</a><a href="ready-study-go.html">Ready Study&nbsp;Go</a></span><span><a href="mailto:MeridianVu@gmail.com">MeridianVu@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/meridianvu" target="_blank" rel="noopener">LinkedIn</a></span></div></footer><script>
 (function(){
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.scroller').forEach(sc=>{
@@ -42,5 +42,15 @@ document.querySelectorAll('.carousel').forEach(c=>{
   c.addEventListener('touchend',e=>{if(x0===null)return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>40) go(i+(dx<0?1:-1)); x0=null;});
   go(0);
 });
+// lightbox
+const zs=[...document.querySelectorAll('[data-lb]')];
+if(zs.length){const d=document.createElement('dialog');d.className='lb';d.innerHTML='<div class="inner"><div class="imgwrap"><img alt=""></div><div class="bar"><button type="button" class="p" aria-label="Previous">&#8249;</button><span></span><button type="button" class="n" aria-label="Next">&#8250;</button><button type="button" class="x" aria-label="Close">&#10005;</button></div></div>';document.body.appendChild(d);
+ const im=d.querySelector('img'),cap=d.querySelector('.bar span'),wrap=d.querySelector('.imgwrap');let set=[],k=0;
+ function show(n){k=(n+set.length)%set.length;const b=set[k];im.className='';im.src=b.dataset.src;im.alt=b.dataset.cap||'';cap.textContent=b.dataset.cap||'';wrap.scrollTop=0;im.onload=()=>{if(im.naturalHeight/im.naturalWidth<2.2)im.className='fit'};}
+ zs.forEach(b=>b.addEventListener('click',()=>{const g=b.closest('.mason,.pgrid,.carousel')||document.body;set=[...g.querySelectorAll('[data-lb]')];show(set.indexOf(b));d.showModal();}));
+ d.querySelector('.p').onclick=()=>show(k-1);d.querySelector('.n').onclick=()=>show(k+1);d.querySelector('.x').onclick=()=>d.close();
+ d.addEventListener('click',e=>{if(e.target===d)d.close()});d.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(k-1);if(e.key==='ArrowRight')show(k+1)});}
+// videos play in view (muted)
+if(!reduce){const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.35});document.querySelectorAll('.pv video').forEach(v=>vio.observe(v));}
 })();
 </script></body></html>
