@@ -1,7 +1,7 @@
 /* Free AI Skill Library helpers.
    1) Paste your Kit form ID between the quotes below once your Kit form exists.
    2) Loom videos: put your Loom share link in data-loom="" on any .loom box. */
-const KIT_FORM_ID = "";
+const KIT_FORM_ID = "10146175";
 
 document.querySelectorAll('.loom').forEach(function (box) {
   var link = (box.dataset.loom || '').trim();
