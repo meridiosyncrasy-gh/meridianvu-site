@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /skills-library-fb500a05
+
+Sitemap: https://meridianvu.com/sitemap.xml
