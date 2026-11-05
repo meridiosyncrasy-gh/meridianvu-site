@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  pages: write
 concurrency:
   group: apply-bundle
   cancel-in-progress: false
@@ -23,8 +24,18 @@ jobs:
             unzip -o -q "$z" -d .
             git rm -q "$z"
           done
+          if [ -f _delete.txt ]; then
+            while IFS= read -r p; do
+              if [ -n "$p" ] && [ -e "$p" ]; then git rm -q -- "$p"; fi
+            done < _delete.txt
+            rm -f _delete.txt
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Apply uploaded bundle" || exit 0
           git push
+      - name: Rebuild GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages rebuild request failed, make a small normal commit instead"
