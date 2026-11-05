@@ -23,3 +23,22 @@
     if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(em).then(ok,fail); } else fail();
   }); });
 })();
+/* Analytics events (Google Analytics 4). Runs only if gtag is on the page. */
+(function(){
+  var d=document;
+  function ev(name,params){ if(typeof window.gtag==='function') window.gtag('event',name,params||{}); }
+  d.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a,button'); if(!a) return;
+    var href=a.getAttribute('href')||'', txt=(a.textContent||'').replace(/\s+/g,' ').trim().slice(0,80);
+    if(a.classList.contains('copy-email')){ ev('copy_email',{link_text:txt}); return; }
+    if(href.indexOf('mailto:')===0){
+      var subj=(href.split('subject=')[1]||'').split('&')[0]; try{subj=decodeURIComponent(subj);}catch(_){}
+      var pkg=a.classList.contains('ask')?subj.replace(/^Project inquiry:\s*/,''):'';
+      ev('generate_lead',{method:'email',link_text:txt,email_subject:subj,package_name:pkg});
+      if(pkg) ev('ask_package',{package_name:pkg});
+      return;
+    }
+    if(href.indexOf('linkedin.com')>-1){ ev('linkedin_click',{link_text:txt}); return; }
+    if(a.classList.contains('menu-btn')&&a.getAttribute('aria-expanded')==='false') ev('open_mobile_menu');
+  },true);
+})();
