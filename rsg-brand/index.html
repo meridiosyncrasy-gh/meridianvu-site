@@ -1,0 +1,304 @@
+<!doctype html><html lang="en" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ready Study Go Social Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a notebook page. Brand tokens up top, then the feed, then each series as a card, then the reusable prompt. */
+:root{
+  --navy:#264D81; --green:#6BBF3B; --sun:#FFD23F; --sky:#CFE8F5; --cream:#FFF8EC;
+  --bg:#FFF8EC; --paper:#FFFFFF; --fg:#1E2F4A; --muted:#5B6B82; --line:rgba(38,77,129,.10); --rule:rgba(38,77,129,.16);
+  --chip:#EAF3FA; --headline:#264D81;
+  --f-display:"Fredoka","Nunito",ui-rounded,system-ui,sans-serif;
+  --f-hand:"Caveat","Comic Sans MS",cursive;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13213A; --paper:#1B2C4A; --fg:#EAF1FA; --muted:#A9B8CF; --line:rgba(207,232,245,.07); --rule:rgba(207,232,245,.16); --chip:#22395E; --headline:#CFE8F5; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13213A; --paper:#1B2C4A; --fg:#EAF1FA; --muted:#A9B8CF; --line:rgba(207,232,245,.07); --rule:rgba(207,232,245,.16); --chip:#22395E; --headline:#CFE8F5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:1120px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:64px}
+h1,h2,h3{font-family:var(--f-display);color:var(--headline);margin:0;text-wrap:balance;line-height:1.1}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700}
+h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:0;max-width:65ch}
+.hand{font-family:var(--f-hand);font-weight:700;color:var(--green);font-size:1.6rem;line-height:1}
+.eyebrow{display:inline-block;font-family:var(--f-display);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;background:var(--navy);color:#fff;padding:5px 12px;border-radius:8px}
+.lede{color:var(--muted);font-size:1.08rem}
+header{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+header img{width:104px;height:104px;border-radius:50%;box-shadow:0 0 0 6px var(--paper)}
+header .t{display:flex;flex-direction:column;gap:10px;min-width:0}
+section{display:flex;flex-direction:column;gap:24px}
+.sec-head{display:flex;flex-direction:column;gap:8px}
+.tape{position:relative}
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.sw{background:var(--paper);border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
+.sw .c{height:92px}
+.sw .m{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.sw b{font-family:var(--f-display);font-weight:600}
+.sw code{font-size:.82rem;color:var(--muted)}
+.sw small{font-size:.82rem;color:var(--muted)}
+.share{display:flex;height:14px;border-radius:7px;overflow:hidden}
+.share span{display:block}
+.note{font-size:.9rem;color:var(--muted)}
+/* type */
+.types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ty{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ty .spec{color:var(--headline)}
+.ty small{color:var(--muted);font-size:.85rem}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.rules ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.box{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.box.yes h3{color:var(--green)} .box.no h3{color:#C0533A}
+/* feed */
+.phone{background:var(--paper);border:1px solid var(--rule);border-radius:28px;padding:18px;max-width:440px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.prof{display:flex;gap:14px;align-items:center}
+.prof img{width:60px;height:60px;border-radius:50%}
+.prof b{font-family:var(--f-display);font-weight:600}
+.prof small{display:block;color:var(--muted);font-size:.82rem;line-height:1.35}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.grid div{aspect-ratio:3/4;overflow:hidden;background:var(--chip)}
+.grid img{width:100%;height:100%;object-fit:cover;display:block}
+.feedrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.feedtxt{display:flex;flex-direction:column;gap:14px}
+.feedtxt ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.before{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.before img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+/* posts */
+.posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.post{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:16px;display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr);gap:18px;align-items:start}
+.post img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;display:block}
+.post .info{display:flex;flex-direction:column;gap:10px;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--chip);color:var(--headline)}
+.chip.g{background:var(--green);color:#fff}
+.chip.y{background:var(--sun);color:#264D81}
+.post p{font-size:.93rem}
+.post .why{font-size:.9rem;color:var(--muted)}
+.post .why b{color:var(--fg)}
+.group-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+/* prompt */
+.prompt{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.prompt pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Menlo,monospace;font-size:.84rem;line-height:1.55;background:var(--chip);padding:16px;border-radius:10px;color:var(--fg);max-height:420px;overflow:auto}
+.btn{align-self:flex-start;font-family:var(--f-display);font-weight:600;background:var(--green);color:#fff;border:0;border-radius:999px;padding:10px 20px;font-size:1rem;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+footer{color:var(--muted);font-size:.85rem}
+@media (max-width:860px){
+  .swatches{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .types,.rules,.posts,.feedrow{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  header{grid-template-columns:1fr}
+  .post{grid-template-columns:1fr}
+  .before{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <img src="img/k-01-ff833fc65a.jpg" alt="Ready Study Go after school academy logo">
+  <div class="t">
+    <span class="hand">brand guide and social kit</span>
+    <h1>Ready Study Go Social Kit</h1>
+    <p class="lede">A simple look for the Instagram and Facebook posts: 5 colors, 3 fonts, a few doodles, and 8 example posts. Everything here was designed with ChatGPT and Gemini, so you can keep making more in the same style with the prompt at the bottom.</p>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow" style="align-self:flex-start">Brand basics</span>
+    <h2>The colors</h2>
+    <p class="lede">Navy and white come straight from the logo. Green and yellow are already in the summer and enrollment posts, so the new look feels like RSG, just more consistent.</p>
+  </div>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:#264D81"></div><div class="m"><b>Logo Navy</b><code>#264D81</code><small>Headlines, labels, the dark tile</small></div></div>
+    <div class="sw"><div class="c" style="background:#FFF8EC;border-bottom:1px solid var(--rule)"></div><div class="m"><b>Notebook Cream</b><code>#FFF8EC</code><small>Main background</small></div></div>
+    <div class="sw"><div class="c" style="background:#CFE8F5"></div><div class="m"><b>Sky Blue</b><code>#CFE8F5</code><small>Second background, cards</small></div></div>
+    <div class="sw"><div class="c" style="background:#6BBF3B"></div><div class="m"><b>Leaf Green</b><code>#6BBF3B</code><small>Buttons, checks, handwriting</small></div></div>
+    <div class="sw"><div class="c" style="background:#FFD23F"></div><div class="m"><b>Sunshine Yellow</b><code>#FFD23F</code><small>Underlines, tape, stars</small></div></div>
+  </div>
+  <div class="share" aria-label="Color mix: 60 percent backgrounds, 30 percent navy, 10 percent green and yellow">
+    <span style="width:60%;background:linear-gradient(90deg,#FFF8EC,#CFE8F5)"></span><span style="width:30%;background:#264D81"></span><span style="width:5%;background:#6BBF3B"></span><span style="width:5%;background:#FFD23F"></span>
+  </div>
+  <p class="note">The mix on any one post: about 60% cream or sky background, 30% navy text, 10% green and yellow pops. Switch the background color from post to post (cream, sky, yellow, navy) so the grid never looks repetitive.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>The fonts</h2>
+    <p class="lede">All three are free in Canva and Google Fonts.</p>
+  </div>
+  <div class="types">
+    <div class="ty"><small>Headlines</small><div class="spec" style="font-family:var(--f-display);font-weight:700;font-size:2rem;line-height:1.05">Fredoka Bold</div><p>Round, chunky and friendly. Use it for the big line on every post.</p></div>
+    <div class="ty"><small>Handwritten accent</small><div class="spec" style="font-family:var(--f-hand);font-weight:700;font-size:2.4rem;line-height:1;color:var(--green)">Caveat Bold</div><p>One short line per post, like a teacher's note in the margin. Never for full sentences.</p></div>
+    <div class="ty"><small>Small text and captions</small><div class="spec" style="font-family:var(--f-body);font-weight:800;font-size:1.6rem;line-height:1.1">Nunito ExtraBold</div><p>Labels, card text, dates, and the link in bio button.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>The house rules</h2></div>
+  <div class="rules">
+    <div class="box yes"><h3>Always</h3>
+      <ul>
+        <li>Light notebook grid paper behind everything</li>
+        <li>A navy or yellow tab label at the top naming the series</li>
+        <li>One handwritten line, underlined in yellow or green</li>
+        <li>Little doodles: stars, pencil, pi symbol, check marks</li>
+        <li>The logo small in the bottom right corner</li>
+        <li>One clear button at the bottom when there is an ask</li>
+        <li>About 1 in 3 posts uses photos: a collage of real RSG photos or photo-style images made in ChatGPT or Gemini (desks, books, hands writing, kids from behind), framed with the tape, doodles and colors so the feed is not all text</li>
+      </ul>
+    </div>
+    <div class="box no"><h3>Never</h3>
+      <ul>
+        <li>Student faces without a signed photo release</li>
+        <li>Student full names</li>
+        <li>More than one ask on a post (donate OR enroll, not both)</li>
+        <li>Colors outside the five above</li>
+        <li>More than 3 fonts</li>
+        <li>AI-made photos captioned as real RSG students or real RSG events</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow" style="align-self:flex-start">The feed</span>
+    <h2>How the grid looks with the new posts</h2>
+  </div>
+  <div class="feedrow">
+    <div class="phone">
+      <div class="prof"><img loading="lazy" src="img/k-01-ff833fc65a.jpg" alt=""><div><b>readystudygoacademy</b><small>Ready Study Go Academy<br>Neurodiverse affirming tutoring | Cerritos, CA</small></div></div>
+      <div class="grid">
+        <div><img loading="lazy" src="img/k-02-f606f843ab.jpg" alt="Let's Chat question post"></div>
+        <div><img loading="lazy" src="img/k-03-3bc7835260.jpg" alt="Friday Win post"></div>
+        <div><img loading="lazy" src="img/k-04-805ffd9860.jpg" alt="Meet our tutors post"></div>
+        <div><img loading="lazy" src="img/k-05-946f58e941.jpg" alt="Study Tip Monday post"></div>
+        <div><img loading="lazy" src="img/k-06-32737094af.jpg" alt="Scholarship progress post"></div>
+        <div><img loading="lazy" src="img/k-07-cc94e3dcf7.jpg" alt="Real class photo already on the account"></div>
+        <div><img loading="lazy" src="img/k-08-5985fed2ad.jpg" alt="Giving Tuesday post"></div>
+        <div><img loading="lazy" src="img/k-09-08f3d1124c.jpg" alt="Where your gift goes post"></div>
+        <div><img loading="lazy" src="img/k-10-175ed7fc75.jpg" alt="Scholarship launch post"></div>
+      </div>
+    </div>
+    <div class="feedtxt">
+      <p>Read it bottom to top, the way it would post. The scholarship launch goes first, then the everyday series take over.</p>
+      <ul>
+        <li><b>Background colors rotate.</b> Cream, sky, yellow and navy never sit next to each other twice, so the grid feels lively without any extra work.</li>
+        <li><b>Real photos still fit.</b> The middle right tile is a real class photo already on the account. Mix one in every few posts so it feels human.</li>
+        <li><b>Grid crop is 3:4.</b> Instagram trims the top and bottom of 4:5 posts in the profile grid, so keep the headline in the middle 80% of the design.</li>
+      </ul>
+      <p class="note">What the feed looks like today, for comparison:</p>
+      <div class="before">
+        <img loading="lazy" src="img/k-11-022007d9ce.jpg" alt=""><img loading="lazy" src="img/k-12-9b364832f2.jpg" alt=""><img loading="lazy" src="img/k-13-6fb4f0e59b.jpg" alt=""><img loading="lazy" src="img/k-14-963d94607b.jpg" alt=""><img loading="lazy" src="img/k-07-cc94e3dcf7.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow" style="align-self:flex-start">The posts</span>
+    <div class="group-title"><h2>Scholarship fundraiser launch</h2><span class="hand">weeks 1 to 4</span></div>
+    <p class="lede">Dollar amounts and the halfway number are examples. Swap in the real goal once it is set.</p>
+  </div>
+  <div class="posts">
+    <article class="post"><img loading="lazy" src="img/k-10-175ed7fc75.jpg" alt="Scholarship launch carousel cover">
+      <div class="info"><div class="chips"><span class="chip y">Week 1</span><span class="chip">Carousel slide 1</span><span class="chip">Made in ChatGPT</span></div>
+      <h3>Launch announcement</h3>
+      <p>The cover of the 3 slide launch carousel. The swipe arrow tells people there is more.</p>
+      <p class="why"><b>Why it works:</b> it says what the fund is in one glance and the handwritten line carries the heart of it: every student, every budget.</p></div></article>
+    <article class="post"><img loading="lazy" src="img/k-09-08f3d1124c.jpg" alt="Where your gift goes slide">
+      <div class="info"><div class="chips"><span class="chip y">Week 1</span><span class="chip">Carousel slide 2</span><span class="chip">Made in ChatGPT</span></div>
+      <h3>Where your gift goes</h3>
+      <p>Shows exactly what each donation covers, like The Sticker's budget breakdown post.</p>
+      <p class="why"><b>Why it works:</b> people give more when they can picture what their money does. Three clear tiers make a small gift feel meaningful.</p></div></article>
+    <article class="post"><img loading="lazy" src="img/k-06-32737094af.jpg" alt="Halfway there progress post">
+      <div class="info"><div class="chips"><span class="chip y">Every 2 weeks</span><span class="chip">Single image</span><span class="chip">Made in Gemini</span></div>
+      <h3>Progress update</h3>
+      <p>The pencil thermometer shows how close the fund is. Repost it whenever the number moves.</p>
+      <p class="why"><b>Why it works:</b> progress makes people want to help finish. It also keeps the fundraiser alive in the feed without repeating the same ask.</p></div></article>
+    <article class="post"><img loading="lazy" src="img/k-08-5985fed2ad.jpg" alt="Giving Tuesday post">
+      <div class="info"><div class="chips"><span class="chip y">Dec 1</span><span class="chip">Single image + Stories</span><span class="chip">Made in Gemini</span></div>
+      <h3>Giving Tuesday ask</h3>
+      <p>The big push day. Post it in the morning and share it to Stories 3 times that day.</p>
+      <p class="why"><b>Why it works:</b> people are already in the mood to donate that day. "Any amount counts" takes the pressure off small givers.</p></div></article>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="group-title"><h2>Everyday series</h2><span class="hand">3 to 4 a week</span></div>
+    <p class="lede">Each series has its own tab label and background color, so followers learn to recognize them.</p>
+  </div>
+  <div class="posts">
+    <article class="post"><img loading="lazy" src="img/k-05-946f58e941.jpg" alt="Study Tip Monday post">
+      <div class="info"><div class="chips"><span class="chip g">Monday</span><span class="chip">Sky background</span><span class="chip">Made in ChatGPT</span></div>
+      <h3>Study Tip Monday</h3>
+      <p>One useful tip list for parents. Swap the three tips each week, keep the layout.</p>
+      <p class="why"><b>Why it works:</b> tips get saved and shared, and saves tell Instagram to show the post to more people. "Save this for tonight" asks for exactly that.</p></div></article>
+    <article class="post"><img loading="lazy" src="img/k-04-805ffd9860.jpg" alt="Meet our tutors post">
+      <div class="info"><div class="chips"><span class="chip g">Wednesday</span><span class="chip">Cream background</span><span class="chip">Made in Gemini</span></div>
+      <h3>Inside RSG: tutor spotlight</h3>
+      <p>A template. Drop a real tutor photo into the polaroid in Canva and fill in the three badges.</p>
+      <p class="why"><b>Why it works:</b> RSG has no brand face, so the tutors become the faces. Parents trust a place more when they know who is teaching their kid.</p></div></article>
+    <article class="post"><img loading="lazy" src="img/k-03-3bc7835260.jpg" alt="Friday Win post">
+      <div class="info"><div class="chips"><span class="chip g">Friday</span><span class="chip">Navy background</span><span class="chip">Made in Gemini</span></div>
+      <h3>Friday Win</h3>
+      <p>Celebrate a class or group win with their work, not their faces. A real worksheet photo works great here too.</p>
+      <p class="why"><b>Why it works:</b> parents share wins about their own kids. The navy tile also anchors the grid so the lighter posts pop.</p></div></article>
+    <article class="post"><img loading="lazy" src="img/k-02-f606f843ab.jpg" alt="Let's Chat question post">
+      <div class="info"><div class="chips"><span class="chip g">Saturday, optional</span><span class="chip">Yellow background</span><span class="chip">Made in ChatGPT</span></div>
+      <h3>Let's Chat</h3>
+      <p>An easy question anyone can answer in one word. Skip it on busy weeks.</p>
+      <p class="why"><b>Why it works:</b> comments push the post to more people, and a question about their own childhood is easy for parents to answer.</p></div></article>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow" style="align-self:flex-start">Make more</span>
+    <h2>The prompt to reuse</h2>
+    <p class="lede">Paste this into ChatGPT or Gemini, attach the RSG logo, and change only the POST part at the end. Keep going in the same chat so every new post stays on brand.</p>
+  </div>
+  <div class="prompt">
+<pre id="prompt">Create an image. You are a senior social media graphic designer. Attached is the logo for Ready Study Go Academy, a warm, neurodiverse affirming afterschool tutoring academy for K to 12 kids in Cerritos, California. Design a polished, scroll stopping Instagram post, 4:5 portrait (1080x1350), that looks like premium designer work, not clip art.
+
+BRAND SYSTEM (use exactly): Navy #264D81 for headlines, Leaf Green #6BBF3B for buttons, Sunshine Yellow #FFD23F for accents and marker underlines, Sky Blue #CFE8F5 and Cream #FFF8EC for backgrounds. Headline font is a chunky rounded sans like Fredoka Bold, accent words in a handwritten marker script like Caveat, small text in Nunito. Motifs: light notebook grid paper texture, a strip of washi tape, small hand drawn doodles (stars, pencil, pi symbol, check mark, sparkles). Place the attached logo small in the bottom right corner. Style: either flat illustration, OR a photo collage of 2 to 3 realistic photos (study desks, open books, hands writing, kids seen from behind) set inside the branded frame with washi tape and doodles. No clear faces.
+
+POST: [series name and background color]. Small tab label at top: [LABEL]. Headline: [headline]. Handwritten accent: [short line]. Center: [what to show]. Bottom green pill button: [ask, or leave out]. Spell every word exactly as written. Generous spacing, nothing crowded.</pre>
+    <button class="btn" id="copy" type="button">Copy prompt</button>
+  </div>
+  <div class="box">
+    <h3>Tips for the team</h3>
+    <ol class="steps">
+      <li>Check every word on the image before posting. AI tools sometimes misspell or swap a word. Ask it to redo with "fix the spelling of X" if so.</li>
+      <li>If one post comes out off brand, say "same exact style as the last one" and regenerate.</li>
+      <li>For posts with real photos (tutors, the space, student work), make the layout in AI, then drop the real photo in using Canva.</li>
+      <li>To break up text-heavy weeks, ask for the photo collage style in the prompt. Use AI photos as mood images only. Real students and real events always get real photos.</li>
+      <li>Batch the whole week in one sitting, then schedule it all in Meta Business Suite so it posts to Instagram and Facebook together.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>Example posts made with ChatGPT and Gemini, Nov 2026. Current feed images from @readystudygoacademy on Instagram.</footer>
+</div>
+
+<script>
+document.getElementById('copy').addEventListener('click',async e=>{
+  const t=document.getElementById('prompt').innerText;
+  try{await navigator.clipboard.writeText(t);e.target.textContent='Copied';}
+  catch(err){const r=document.createRange();r.selectNodeContents(document.getElementById('prompt'));const s=getSelection();s.removeAllRanges();s.addRange(r);e.target.textContent='Selected, press Copy';}
+  setTimeout(()=>e.target.textContent='Copy prompt',2200);
+});
+</script>
+
+</body></html>
