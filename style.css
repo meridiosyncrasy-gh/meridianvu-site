@@ -652,3 +652,4 @@ footer .fcol a:hover{color:var(--plum);text-decoration:underline}
 .nav .more-panel li{text-align:left}
 .backlink{display:flex;width:max-content;margin-bottom:10px}
 .mw .tag{align-self:flex-start;width:max-content}
+.brand .mono{box-shadow:none;border-radius:50%}
