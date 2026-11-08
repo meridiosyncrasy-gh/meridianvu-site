@@ -17,6 +17,7 @@ Contact: MeridianVu@gmail.com | https://www.linkedin.com/in/meridianvu | replies
 - [KBF Home Improvement](https://meridianvu.com/kbf-case-study): AI systems for a 15,000+ product Shopify store. About 190 work hours a week saved and up to $43K a year in overseas labor costs cut. 10,871 products added in 8 weeks.
 - [Media Scaling](https://meridianvu.com/media-scaling-case-study): 50+ Claude skills and scheduled tasks for a short-form video agency, 35 shared across the strategy team. An estimated 21 hours saved a week per strategy lead.
 - [Iris Lee and Boston Gift Baskets](https://meridianvu.com/iris-lee-case-study): Shopify SEO, about 679 new lifestyle product photos and 31 banners. Boston Gift Baskets: +70% sales and +54% orders from Sep 1 to Nov 7, 2026 vs the same dates in 2025. Also a brand kit and a 16 pin Pinterest launch feed.
+- [Iris Lee WordPress to Shopify migration](https://meridianvu.com/iris-lee-migration-case-study): I took over a partly finished move from a WordPress menu site to Shopify for a Chestnut Hill, MA bakery. 365 live listings, every one priced, placeholder names like Cake 01 renamed with 365 redirects, SEO titles and descriptions on 358 of 365 products, and the old irisleesweets.com domain forwarding to irislee.com.
 - [Boutique Bestie Solutions](https://meridianvu.com/bbs-pinterest-case-study): Pinterest organic and ads for women's clothing boutiques (1099 contract, Mar to May 2026). A Pinterest shopping campaign returned 5.6x its ad spend: $272 in, $1,527 in checkout sales.
 
 ## More
