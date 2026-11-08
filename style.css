@@ -228,7 +228,7 @@ footer .in{max-width:1180px;margin:0 auto;padding:28px var(--pad) 44px;display:f
 .statband .stat .n{color:#fff}
 .statband .stat .l{color:#e6dcf5}
 .cs-body{display:flex;flex-direction:column;gap:clamp(44px,6vw,72px);padding-block:clamp(44px,6vw,72px)}
-.row{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(20px,4vw,56px)}
+.row{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(28px,4vw,64px)}
 @media (max-width:860px){.row{grid-template-columns:minmax(0,1fr)}}
 .row > .lbl{display:flex;flex-direction:column;gap:6px}
 .row > .lbl h2{font-size:clamp(26px,2.6vw,32px)}
