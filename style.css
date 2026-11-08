@@ -655,3 +655,8 @@ footer .fcol a:hover{color:var(--plum);text-decoration:underline}
 .brand .mono{box-shadow:none;border-radius:50%}
 
 .tier.hot{padding:23px}.tier .btn.ask{padding:0 12px}
+
+/* logo kit */
+.brand .wm{height:30px;width:auto;display:block}
+@media (max-width:560px){.brand .wm{height:26px}}
+.fid .fwm{width:200px;height:auto;display:block;margin:0 0 10px -2px}
