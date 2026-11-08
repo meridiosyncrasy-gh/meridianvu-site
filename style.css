@@ -660,3 +660,8 @@ footer .fcol a:hover{color:var(--plum);text-decoration:underline}
 .brand .wm{height:30px;width:auto;display:block}
 @media (max-width:560px){.brand .wm{height:26px}}
 .fid .fwm{width:200px;height:auto;display:block;margin:0 0 10px -2px}
+
+/* dark mode logos: light text wordmarks */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .brand .wm{visibility:hidden}:root:not([data-theme="light"]) .brand{background:url(logo/wordmark-line-light.svg) no-repeat left center/auto 30px}:root:not([data-theme="light"]) .fid .fwm{visibility:hidden}:root:not([data-theme="light"]) .fid{background:url(logo/wordmark-swoosh-light.svg) no-repeat -2px 0/200px auto}}
+:root[data-theme="dark"] .brand .wm{visibility:hidden}:root[data-theme="dark"] .brand{background:url(logo/wordmark-line-light.svg) no-repeat left center/auto 30px}:root[data-theme="dark"] .fid .fwm{visibility:hidden}:root[data-theme="dark"] .fid{background:url(logo/wordmark-swoosh-light.svg) no-repeat -2px 0/200px auto}
+@media (max-width:560px){:root .brand{background-size:auto 26px!important}}
