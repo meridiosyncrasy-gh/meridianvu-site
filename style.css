@@ -653,3 +653,5 @@ footer .fcol a:hover{color:var(--plum);text-decoration:underline}
 .backlink{display:flex;width:max-content;margin-bottom:10px}
 .mw .tag{align-self:flex-start;width:max-content}
 .brand .mono{box-shadow:none;border-radius:50%}
+
+.tier.hot{padding:23px}.tier .btn.ask{padding:0 12px}
