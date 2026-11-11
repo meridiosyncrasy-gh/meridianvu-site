@@ -415,6 +415,7 @@ ol.steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:12px
 .mw .t{padding:12px 14px 14px;display:flex;flex-direction:column;gap:2px}
 .mw .t b{font-family:var(--display);font-size:18px;line-height:1.2}
 .mw .t span{font-size:14px;color:var(--muted);line-height:1.35}
+@media (max-width:700px){.mwgrid:not(.three) .mw .t b{font-size:clamp(14px,4.1vw,18px);overflow-wrap:anywhere}}
 dialog.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1400px);max-height:94vh;width:auto}
 dialog.lb::backdrop{background:rgba(23,19,30,.88)}
 dialog.lb .inner{display:flex;flex-direction:column;align-items:center;gap:10px}
