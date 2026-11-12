@@ -238,6 +238,9 @@ footer .in{max-width:1180px;margin:0 auto;padding:28px var(--pad) 44px;display:f
 .row .content > p{font-size:18px;max-width:70ch}
 .systems{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:640px){.systems{grid-template-columns:1fr}}
+.systems.three{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:20px}
+.cardgrid.one{grid-template-columns:1fr}
+@media (max-width:980px){.systems.three{grid-template-columns:1fr}}
 .sys{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px}
 .sys h3{font-family:var(--body);font-weight:700;font-size:18px}
 .sys .when{align-self:flex-start;font-size:12.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:3px 10px;border-radius:999px}
