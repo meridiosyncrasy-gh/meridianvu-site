@@ -20,7 +20,7 @@ document.querySelectorAll('.signup form').forEach(function (form) {
     if (!email) return;
     if (!KIT_FORM_ID) {
       var body = 'Hi Meridian! Please send me the free AI Skill Library.%0D%0A%0D%0AName: ' + encodeURIComponent(first) + '%0D%0AEmail: ' + encodeURIComponent(email);
-      window.location.href = 'mailto:MeridianVu@gmail.com?subject=' + encodeURIComponent('Free AI Skill Library') + '&body=' + body;
+      window.location.href = 'mailto:hello@meridianvu.com?subject=' + encodeURIComponent('Free AI Skill Library') + '&body=' + body;
       box.querySelector('.ok').textContent = 'Your email app just opened. Hit send and I will email you the library link. \u2661';
       box.classList.add('done');
       return;
